@@ -1,7 +1,7 @@
 
- --1)Выбрать турнир с наибольшим количеством гроссмейстеров.
+ --1)
 
-select TOP(1) with ties TOURMAMENTS.NAME AS 'турнир с наибольшим количеством гроссмейстеров'
+select TOP(1) with ties TOURMAMENTS.NAME AS 'TOURMAMENTS'
 from TOURMAMENTS,PARTICIPATIONS,players,TITLES
 where TOURMAMENTS.tourmament_id = PARTICIPATIONS.TOURMAMENT_ID and
 PARTICIPATIONS.PLAYER_ID = players.PLAYER_ID and
@@ -14,8 +14,7 @@ ORDER BY count(players.PLAYER_ID) DESC
 
 
 
---2)Выбрать те турниры, где ни одно призовое место не занял
---   представитель страны-хозяина турнира
+--2)
 
 
 SELECT TOURMAMENTS.NAME FROM
@@ -39,7 +38,7 @@ WHERE TOURMAMENTS.TOURMAMENT_ID =T.TOURMAMENT_ID
 
 	
 	
-	--3) турниры, в которых участник с самым высоким рейтингом занял последнее место	
+	--3) 	
 	select TOURMAMENTS.NAME
 	from PARTICIPATIONS, PLAYERS,TOURMAMENTS,
 	(select participations.TOURMAMENT_ID as pt1, max (PLAYERS.RATING) as maxrating
@@ -59,7 +58,7 @@ WHERE TOURMAMENTS.TOURMAMENT_ID =T.TOURMAMENT_ID
 
 
 	
-   --4) ИТОГОВЫЕ ОЧКИ ПОБЕДИТЕЛЕЙ В ТУРНИРЕ "LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT"
+   --4) 
 
 SELECT TOP(3) PLAYERS.NAME as player, (OCKI_1.OCKI + OCKI_2.OCKI) AS 'TOTAL SCORE'
 FROM PARTICIPATIONS , PLAYERS,
@@ -88,7 +87,7 @@ PARTICIPATIONS.PLAYER_ID = PLAYERS.PLAYER_ID
 ORDER BY 'TOTAL SCORE' DESC
 
 
-	--5 Статистика шахматных федераций (ЧИСЛО МЕДАЛЕЙ ЗА 21 век)
+	--5 
 
 
 	select COUNTRIES.SHORT_NAME as federation, count(PARTICIPATIONS.PLACE)as 'medals'
@@ -103,7 +102,7 @@ ORDER BY 'TOTAL SCORE' DESC
 
 
 
-	--6 НАИБОЛЕЕ часто используемый международными гроссмейстерами гамбит
+	--6 
 
 
 
@@ -131,7 +130,7 @@ ORDER BY 'TOTAL SCORE' DESC
 	
 
 
-	--7) Топ 3 игрокА по рейтингу ФИДЕ СРЕДИ ЖЕНЩИН ИМЕЮЩИХ ТИТУЛЫ ФИДЕ
+	--7) 
 
 
 
@@ -146,7 +145,7 @@ ORDER BY 'TOTAL SCORE' DESC
 	
 	
 
-	--ПЕРЕИМЕНОВАНИЕ КЛУБА
+	
 	
 	
 	UPDATE CLUBS
@@ -156,7 +155,7 @@ ORDER BY 'TOTAL SCORE' DESC
 
 	SELECT * FROM CLUBS
 
-	--ТО ЖЕ С ОШИБКОЙ (РАЗМЕР)
+	--Г’ГЋ Г†Г… Г‘ ГЋГГ€ГЃГЉГЋГ‰ (ГђГЂГ‡ГЊГ…Гђ)
 	UPDATE CLUBS
 	SET   CLUBS.CLUB_NAME = 'CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_CHESS_'
 	FROM CLUBS
@@ -165,9 +164,7 @@ ORDER BY 'TOTAL SCORE' DESC
 	SELECT * FROM CLUBS
 
 
-	--ИЗМЕНЕНИЕ РЕЗУЛЬТАТА ПАРТИИ В СВЯЗИ С ЗАПОЗДАВШИМ 
-	--ОБНАРУЖЕНИЕМ МОШЕННИЧЕСТВА ИГРОКА Ageichenko Genadi A В ПАРТИИ НОМЕР 9
-	--В ТУРНИРЕ LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT
+	--Ageichenko Genadi , LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT
 
 
 
@@ -185,7 +182,7 @@ ORDER BY 'TOTAL SCORE' DESC
 
 		SELECT * FROM GAMES
 
-	-- ТО ЖЕ ( НЕПРАВИЛЬНОЕ ИЗМЕНЕНИЕ РЕЗУЛЬТАТА ПАРТИИ )
+	
 
 	UPDATE GAMES
 	SET GAMES.RESULT_FOR_WHITE = -1.0
@@ -199,8 +196,7 @@ ORDER BY 'TOTAL SCORE' DESC
 	AND TOURMAMENTS.NAME='LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT'
 
 
-	--УДАЛЕНИЕ ИГРОКА Ageichenko Genadi A (НОМЕР 2) ИЗ ДАННЫХ О ТУРНИРЕ
-	-- ВВИДУ ДИСКВАЛИФИКАЦИИ ИЗ ТУРНИРА 'LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT'
+	-- Ageichenko Genadi  , 'LIGHTHOUSE INTERSCHOOLS CHESS TOURNAMENT'
 	
 	SELECT * FROM GAMES
 	
