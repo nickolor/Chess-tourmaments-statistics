@@ -1,14 +1,3 @@
---  Представление:
-
-
-
-
-
-
---Звание, количество шахматистов в этом звании, количество 
---призовых мест на турнирах c 2000 года ШАХМАТИСТОВ С ТАКИМ ЗВАНИЕМ, 
---ИХ среднее место на турнирах c 2000 года
-
 
 
 --------
@@ -18,8 +7,8 @@ DROP view TITLES_STATISTIC
 
 GO
 create view TITLES_STATISTIC AS
-SELECT TITLES.NAME, NUMBER_PLAYERS.PLAYERS, NUMBER_WINNERS.N_W AS 'количество призовых мест',
- Aver_Place.AV_PL as 'среднее место'
+SELECT TITLES.NAME, NUMBER_PLAYERS.PLAYERS, NUMBER_WINNERS.N_W AS 'ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°ГЁГ§Г®ГўГ»Гµ Г¬ГҐГ±ГІ',
+ Aver_Place.AV_PL as 'Г±Г°ГҐГ¤Г­ГҐГҐ Г¬ГҐГ±ГІГ®'
 FROM TITLES 
 INNER JOIN
 (
@@ -68,8 +57,7 @@ SELECT * FROM TITLES_STATISTIC
 
 
 
- ----Страна, количество шахматистов из этой страны, принимавших участие в турнирах,
- ---- количество ПРИЗОВЫХ МЕСТ шахматистов из этой страны.
+
 
  -----------
  if OBJECT_ID('Countries_statistics') IS NOT NULL
@@ -78,9 +66,9 @@ SELECT * FROM TITLES_STATISTIC
 
  GO
 create view Countries_statistics as
-SELECT  COUNTRIES.SHORT_NAME AS 'Страна',	
-		isnull(NUMBER_PLAYERS.NUM_PL,0) AS 'количество шахматистов', 
-		isnull(NUMBER_WINNERS.NUM_WIN,0) AS 'количество побед'
+SELECT  COUNTRIES.SHORT_NAME AS 'Г‘ГІГ°Г Г­Г ',	
+		isnull(NUMBER_PLAYERS.NUM_PL,0) AS 'ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГёГ ГµГ¬Г ГІГЁГ±ГІГ®Гў', 
+		isnull(NUMBER_WINNERS.NUM_WIN,0) AS 'ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ®ГЎГҐГ¤'
 FROM
 COUNTRIES 
 
@@ -112,14 +100,14 @@ SELECT * FROM Countries_statistics
 ---------------------------------------------------
 
 
----Шахматист, рейтинг, среднее место по всем турнирам.
+
 
  if OBJECT_ID('chess_player_statistics') IS NOT NULL
  DROP VIEW chess_player_statistics
  
  go
  create view chess_player_statistics as
- select PLAYERS.NAME as 'Шахматист',PLAYERS.RATING as 'рейтинг', AV_PL.AVP as 'среднее место'
+ select PLAYERS.NAME as 'ГГ ГµГ¬Г ГІГЁГ±ГІ',PLAYERS.RATING as 'Г°ГҐГ©ГІГЁГ­ГЈ', AV_PL.AVP as 'Г±Г°ГҐГ¤Г­ГҐГҐ Г¬ГҐГ±ГІГ®'
  from  PLAYERS
  INNER JOIN
  (select  PLAYERS.PLAYER_ID,AVG(PARTICIPATIONS.PLACE) AS AVP
@@ -134,14 +122,14 @@ SELECT * FROM Countries_statistics
   ------------------------------------------
 
 
- -----Город, год, шахматист, звание - только призеры
+ 
   if OBJECT_ID('city_statistics') IS NOT NULL
  DROP VIEW city_statistics
  
  go
  create view city_statistics as
- SELECT LOCATIONS.CITY_NAME AS 'Город',YEAR(TOURMAMENTS.DATE_START)AS 'ГОД',
- PLAYERS.NAME AS 'шахматист', TITLES.NAME AS 'звание'
+ SELECT LOCATIONS.CITY_NAME AS 'ГѓГ®Г°Г®Г¤',YEAR(TOURMAMENTS.DATE_START)AS 'ГѓГЋГ„',
+ PLAYERS.NAME AS 'ГёГ ГµГ¬Г ГІГЁГ±ГІ', TITLES.NAME AS 'Г§ГўГ Г­ГЁГҐ'
  FROM LOCATIONS, TOURMAMENTS ,PLAYERS, TITLES, PARTICIPATIONS
  WHERE LOCATIONS.PLACE_ID=TOURMAMENTS.LOCATION_ID AND
  TOURMAMENTS.TOURMAMENT_ID=PARTICIPATIONS.TOURMAMENT_ID AND
@@ -156,16 +144,15 @@ SELECT * FROM Countries_statistics
 
  ----------------------------------
 
-  ---- ГАМБИТ, ЧИСЛО ПАРТИЙ, В КОТОРЫХ ОН РАЗЫГРАН, ЧИСЛО шахматистов 
-  ----  его использОВАВШИХ в ПРОШЕДШИХ ТУРНИРАХ
+  
 
 
     if OBJECT_ID('opening_STATISTICS') IS NOT NULL
  DROP VIEW opening_STATISTICS
  GO
 CREATE VIEW opening_STATISTICS AS
- SELECT characteristics_values.characteristic_value AS 'ВИД ГАМБИТА',
- COUNT(GAMES.GAME_ID) AS 'ЧИСЛО ПАРТИЙ',COUNT(PARTICIPATIONS.PLAYER_ID) AS 'ЧИСЛО шахматистов'
+ SELECT characteristics_values.characteristic_value AS 'Г‚Г€Г„ ГѓГЂГЊГЃГ€Г’ГЂ',
+ COUNT(GAMES.GAME_ID) AS 'Г—Г€Г‘Г‹ГЋ ГЏГЂГђГ’Г€Г‰',COUNT(PARTICIPATIONS.PLAYER_ID) AS 'Г—Г€Г‘Г‹ГЋ ГёГ ГµГ¬Г ГІГЁГ±ГІГ®Гў'
  FROM GAMES,GAME_DESCRIPTION, characteristics_values,game_characteristics,PARTICIPATIONS
  WHERE GAMES.GAME_ID=GAME_DESCRIPTION.GAME_Id AND
  GAME_DESCRIPTION.GAME_characteristic_ID=game_characteristics.game_characteristics_id AND
@@ -187,9 +174,7 @@ CREATE VIEW opening_STATISTICS AS
 
 
 
- ---- СТАТИСТИКА ПАРТИЙ ИГРОКОВ :
- ---- ИГРОКИ,УЧАСТВОВАВШИЕ В ТУРИНИРАХ, OБЩЕЕ ЧИСЛО СЫГРАННЫХ ПАРТИЙ ,
- ---- ЧИСЛО ПОБЕД ИЗ НИХ (ЕСЛИ ПОБЕДЫ ЕСТЬ)
+ 
  
  
  if OBJECT_ID('GAMES_STATISTICS') IS NOT NULL
@@ -197,7 +182,7 @@ CREATE VIEW opening_STATISTICS AS
  
  GO
   CREATE VIEW GAMES_STATISTICS AS
- SELECT PLAYERS.NAME AS 'ИГРОК', NUM_GAM.NUM  AS 'ЧИСЛО ПАРТИЙ' ,NUM_WINS.NW AS 'ЧИСЛО ПОБЕД'
+ SELECT PLAYERS.NAME AS 'Г€ГѓГђГЋГЉ', NUM_GAM.NUM  AS 'Г—Г€Г‘Г‹ГЋ ГЏГЂГђГ’Г€Г‰' ,NUM_WINS.NW AS 'Г—Г€Г‘Г‹ГЋ ГЏГЋГЃГ…Г„'
  FROM PLAYERS,
  (
   SELECT PLAYERS.PLAYER_ID AS PL,COUNT(GAMES.GAME_ID)AS NUM
@@ -234,7 +219,6 @@ SELECT PLAYERS.PLAYER_ID AS PL,COUNT(GAMES.GAME_ID)AS NW
 
 
 
- ----КЛУБ, ЧИСЛО ИГРОКОВ В НЕМ, СРЕДНИЙ РЕЙТИНГ КЛУБА, ЧИСЛО МЕДАЛИСТОВ КЛУБА
 
 
  if OBJECT_ID('CLUBS_STATISTICS') IS NOT NULL
@@ -242,8 +226,8 @@ SELECT PLAYERS.PLAYER_ID AS PL,COUNT(GAMES.GAME_ID)AS NW
 
   GO
  CREATE VIEW CLUBS_STATISTICS AS 
- SELECT CLUBS.CLUB_NAME AS 'КЛУБ',COUNT (PLAYERS.PLAYER_ID)AS 'ЧИСЛО ИГРОКОВ',
- AVG(PLAYERS.RATING) AS ' СРЕДНИЙ РЕЙТИНГ', NUM_WIN.WIN AS 'ЧИСЛО МЕДАЛИСТОВ'
+ SELECT CLUBS.CLUB_NAME AS 'ГЉГ‹Г“ГЃ',COUNT (PLAYERS.PLAYER_ID)AS 'Г—Г€Г‘Г‹ГЋ Г€ГѓГђГЋГЉГЋГ‚',
+ AVG(PLAYERS.RATING) AS ' Г‘ГђГ…Г„ГЌГ€Г‰ ГђГ…Г‰Г’Г€ГЌГѓ', NUM_WIN.WIN AS 'Г—Г€Г‘Г‹ГЋ ГЊГ…Г„ГЂГ‹Г€Г‘Г’ГЋГ‚'
  
  FROM CLUBS,PLAYERS,
  (
@@ -266,14 +250,13 @@ GROUP BY CLUBS.CLUB_ID
 
 
  ---------------------------------------------------------
- ---- КЛУБ, ЛУЧШИЙ ИГРОКОВ, ЕГО РЕЙТИНГ
 
  if OBJECT_ID('CLUBS_BEST_PLAYERS') IS NOT NULL
 	 DROP VIEW CLUBS_BEST_PLAYERS 
 
  GO
  CREATE VIEW CLUBS_BEST_PLAYERS AS 
-	SELECT CLUBS.CLUB_NAME AS 'КЛУБ',PLAYERS.NAME AS ' ЛУЧШИЙ ИГРОКОВ', PLAYERS.RATING AS 'РЕЙТИНГ'
+	SELECT CLUBS.CLUB_NAME AS 'ГЉГ‹Г“ГЃ',PLAYERS.NAME AS ' Г‹Г“Г—ГГ€Г‰ Г€ГѓГђГЋГЉГЋГ‚', PLAYERS.RATING AS 'ГђГ…Г‰Г’Г€ГЌГѓ'
 		FROM
 		PLAYERS
 		INNER JOIN 
