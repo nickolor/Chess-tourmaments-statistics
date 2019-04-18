@@ -1,6 +1,7 @@
 # MS-SQL
 
 Each folder corresponds to a relevant step in creating a database for a particular purpose:
+(In this example it is Chess Tourmaments' statistics)
 
 0) Scheme
 
