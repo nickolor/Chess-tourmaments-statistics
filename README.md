@@ -1,4 +1,4 @@
-Each file corresponds to a step of relational database creation for Chess Tourmaments statistics:
+Each folder corresponds to a step in relational database creation for Chess Tourmaments statistics:
 
 0) Scheme of this database
 
