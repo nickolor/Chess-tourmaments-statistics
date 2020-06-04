@@ -11,3 +11,9 @@ Each file corresponds to a step of relational database creation for Chess Tourma
 4) Collisions and isolation 
 
 5) Security 
+
+6) Metadata
+
+7) Trigger
+
+8) Deadlocks
