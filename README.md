@@ -7,10 +7,10 @@ Each folder corresponds to a relevant step in creating a database for a particul
 
 1) Creating tables and Inserting info
 
-2)selects, updates and deletes from tables
+2) selects, updates and deletes from tables
 
-3)presetations of info
+3) presetations of info
 
-4)collisions and isolation 
+4) collisions and isolation 
 
 5) security 
