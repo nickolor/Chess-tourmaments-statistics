@@ -1,16 +1,13 @@
-# MS-SQL
+Each file corresponds to a step of relational database creation for Chess Tourmaments statistics:
 
-Each folder corresponds to a relevant step in creating a database for a particular purpose:
-(In this example it is Chess Tourmaments' statistics)
+0) Scheme of this database
 
-0) Scheme
+1) Create tables and Insert info
 
-1) Creating tables and Inserting info
+2) Select, Update and Delete from tables
 
-2) selects, updates and deletes from tables
+3) Presetations of info from database
 
-3) presetations of info
+4) Collisions and isolation 
 
-4) collisions and isolation 
-
-5) security 
+5) Security 
